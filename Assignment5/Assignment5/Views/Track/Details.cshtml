@@ -1,0 +1,67 @@
+﻿@model Assignment5.Controllers.TrackWithDetail
+
+@{
+    ViewBag.Title = "Track Details";
+}
+
+<h2>Track details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+ 
+        <dt>
+            @Html.DisplayNameFor(model => model.Composer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Composer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Milliseconds)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Milliseconds)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+        <dt>
+            Album title
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlbumTitle)
+        </dd>
+        <dt>
+            Artist name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlbumArtistName)
+        </dd>
+
+        <dt>
+            MediaType
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MediaType.Name)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
