@@ -1,0 +1,131 @@
+﻿@model Assignment_9.Controllers.ArtistWithMediaItemStringIds
+
+@{
+    ViewBag.Title = "DetailsWithMediaItemInfo";
+}
+
+<h2>Artist Details for - @Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+    <h4>Artist details and media item information</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthOrStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthOrStartDate)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlArtist)
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.UrlArtist)" height="128" width="172" />
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Portrayal)
+        </dt>
+        <dd>
+            <div class="panel panel-default panel-body">
+                @Html.Raw(Model.Portrayal)
+            </div>
+        </dd>
+        <dt>
+            Photos
+        </dt>
+        <dd>
+            @foreach (var item in Model.MediaItems.Where(m => m.ContentType.Contains("image/")))
+            {
+                <div>
+                    <span>@item.Caption</span><br>
+                    <img src="~/mediaitem/@item.StringId" alt="@item.Caption" title="@item.Caption" width="200">
+                </div>
+
+            }
+            <hr>
+        </dd>
+        <dt>
+            Audio
+        </dt>
+        <dd>
+            @foreach (var item in Model.MediaItems.Where(m => m.ContentType.Contains("audio/")))
+            {
+                <div>
+                    <span>@item.Caption</span><br>
+                    <audio src="~/mediaitem/@item.StringId" controls="controls"></audio>
+                </div>
+            }
+            <hr>
+        </dd>
+        <dt>
+            Documents
+        </dt>
+        <dd>
+            @foreach (var item in Model.MediaItems.Where(m => m.ContentType.Contains("application/")))
+            {
+                <div>
+                    <span>@item.Caption</span><br>
+                    @if (@item.ContentType.Contains("word")) {
+                    <a href="~/mediaitem/@item.StringId" download="~/mediaitem/@item.StringId"><img src="/image/docx.png"/></a>
+                    }
+                    else if (@item.ContentType.Contains("powerpoint"))
+                    {
+                        <a href="~/mediaitem/@item.StringId" download="~/mediaitem/@item.StringId"><img src="/image/point.png" width="105" height="111"/></a>
+                    }
+                    else if (@item.ContentType.Contains("sheet"))
+                    {
+                        <a href="~/mediaitem/@item.StringId" download="~/mediaitem/@item.StringId"><img src="/image/excel.png" width="105" height="111" /></a>
+                    }
+                    else if (@item.ContentType.Contains("pdf"))
+                    {
+                        <a href="~/mediaitem/@item.StringId" download="~/mediaitem/@item.StringId"><img src="/image/pdf.jpg" width="105" height="111" /></a>
+                    }
+                </div>
+            }
+            @foreach (var item in Model.MediaItems.Where(m => m.ContentType.Contains("text/")))
+            {
+                <div>
+                    <span>@item.Caption</span><br>
+                    @if (@item.ContentType.Contains("plain"))
+                    {
+                        <a href="~/mediaitem/@item.StringId" download="~/mediaitem/@item.StringId"><img src="/image/plain.png"  width="105" height="111"/></a>
+                    }
+                </div>
+            }
+            <hr>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Add Album for this artist", "AddAlbum", new { id = Model.Id }) |
+    @Html.ActionLink("Add Media for this artist", "AddMediaItem", new { id = Model.Id })
+</p>
